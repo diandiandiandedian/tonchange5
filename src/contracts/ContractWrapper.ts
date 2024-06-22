@@ -51,7 +51,7 @@ export class Counter implements Contract {
         })
         // todo nft合约地址
         // 自己创建的nftitem合约: EQDylFtFZBeAJXxkE-6Zjs-Li8Lzbh3kqXGhs1lR3B9y52Cd
-        let {stack}=await toncenter.runMethod(Address.parse('EQAo6NTbA59-iITS8YB0RWjhZoh-vIbuCWZFvU1UCqC1ktaG'), 'get_collection_data')
+        let {stack}=await toncenter.runMethod(Address.parse('EQDf6HCOggN_ZGL6YsYleN6mDiclQ_NJOMY-x8G5cTRDOBW4'), 'get_collection_data')
 
         let nextItemIndex = stack.readBigNumber();
         console.log('nextItemIndex', nextItemIndex)

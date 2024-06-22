@@ -25,7 +25,7 @@ export function useContractWrapper() {
     const mainContract = useInit( async () => {
         if (!client) return;
         const contract = new Counter(
-            Address.parse("EQAo6NTbA59-iITS8YB0RWjhZoh-vIbuCWZFvU1UCqC1ktaG")
+            Address.parse("EQDf6HCOggN_ZGL6YsYleN6mDiclQ_NJOMY-x8G5cTRDOBW4")
         );
         return client.open(contract) as OpenedContract<Counter>;
     },[client]);
