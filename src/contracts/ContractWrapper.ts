@@ -47,7 +47,8 @@ export class Counter implements Contract {
         }
     ) {
         const toncenter = new TonClient({
-            endpoint: 'https://testnet.toncenter.com/api/v2/jsonRPC',
+            // todo 线上和测试 testnet.
+            endpoint: 'https://toncenter.com/api/v2/jsonRPC',
         })
         // todo nft合约地址
         // 自己创建的nftitem合约: EQDylFtFZBeAJXxkE-6Zjs-Li8Lzbh3kqXGhs1lR3B9y52Cd

@@ -11,4 +11,14 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
+  overrides: [
+    {
+      files: ['*.config.js'],
+      env: {
+        node: true,
+      },
+    },
+  ],
+  ignorePatterns: ['*.config.js'],
+
 }
