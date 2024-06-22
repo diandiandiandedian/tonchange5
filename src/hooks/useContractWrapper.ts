@@ -37,7 +37,7 @@ export function useContractWrapper() {
             const instack = await mainContract.getNFTCount();
             console.log('instack', instack)
             setContractData({
-                number: parseInt(instack),
+                number: parseInt(instack.toString()),
             });
             await sleep(5000);
             getValue();

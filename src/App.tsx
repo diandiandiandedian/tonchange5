@@ -49,6 +49,8 @@ return (
         </a>
       )}
           <br/>
+          <br/>
+          <br/>
       {connected && (
         <a
           onClick={()=>{
