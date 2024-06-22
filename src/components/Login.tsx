@@ -36,6 +36,20 @@ export const Login = () => {
     //     return client.open(contract);
     // },[client]);
 
+    async function mintNFT() {
+        // wait until confirmed
+        await mintNFTMessage();
+        // const seqno = await connected.connected .getSeqno();
+
+        // let currentSeqno = seqno;
+        // while (currentSeqno == seqno) {
+        //     console.log("waiting for transaction to confirm...");
+        //     await sleep(1500);
+        //     currentSeqno = await walletContract.getSeqno();
+        // }
+        console.log("transaction confirmed!");
+    }
+
 
     return (
         <div className="h-screen w-[100%] flex flex-col items-center justify-center bg-[url('/public/bg.svg')] bg-cover">
@@ -49,10 +63,11 @@ export const Login = () => {
             {/*    <span>User-friendly address: {userFriendlyAddress}</span>*/}
             {/*    <span>Raw address: {rawAddress}</span>*/}
             {/*</div>*/}
+            <TonConnectButton/>
 
-            {!connected && (stakeLoading ? <span className="loading loading-spinner loading-sm"></span> :
-                    <TonConnectButton/>
-            )}
+            {/*{!connected && (stakeLoading ? <span className="loading loading-spinner loading-sm"></span> :*/}
+            {/*        <TonConnectButton/>*/}
+            {/*)}*/}
             {/*{!haveLogin && <div className="overflow-hidden">*/}
             {/*    <div id="g_id_onload"*/}
             {/*         data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"*/}
@@ -91,10 +106,7 @@ export const Login = () => {
 
             {connected && (
                 <button className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']"
-                        onClick={() => {
-                            mintNFTMessage();
-                        }}
-                >
+                        onClick={() => {mintNFT()}}>
 
                     {stakeLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint DISHSOON NFT'}
                 </button>

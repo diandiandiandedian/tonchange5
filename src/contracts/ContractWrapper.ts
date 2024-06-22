@@ -89,7 +89,7 @@ export class Counter implements Contract {
             queryID?: number;
         }
     ) {
-        await provider.internal(via, {
+       const res = await provider.internal(via, {
             value: opts.value,
             sendMode: SendMode.PAY_GAS_SEPARATELY,
             body: beginCell()
@@ -98,6 +98,7 @@ export class Counter implements Contract {
                 .storeUint(opts.increaseBy, 32)
                 .endCell(),
         });
+       console.log('ContractWrapper.ts res', res)
     }
 
     async getCounter(provider: ContractProvider) {
