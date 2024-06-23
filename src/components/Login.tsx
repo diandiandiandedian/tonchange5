@@ -40,7 +40,7 @@ export const Login = () => {
         // wait until confirmed
         try {
             await mintNFTMessage();
-            // window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
+            window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
         }catch (e) {
             //Error: Request failed with status code 429
             console.log(e)
