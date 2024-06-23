@@ -52,7 +52,7 @@ export class Counter implements Contract {
         })
         // todo nft合约地址
         // 自己创建的nftitem合约: EQDylFtFZBeAJXxkE-6Zjs-Li8Lzbh3kqXGhs1lR3B9y52Cd
-        let {stack}=await toncenter.runMethod(Address.parse('EQDf6HCOggN_ZGL6YsYleN6mDiclQ_NJOMY-x8G5cTRDOBW4'), 'get_collection_data')
+        let {stack}=await toncenter.runMethod(Address.parse('EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl'), 'get_collection_data')
 
         let nextItemIndex = stack.readBigNumber();
         console.log('nextItemIndex', nextItemIndex)
@@ -69,13 +69,14 @@ export class Counter implements Contract {
 
         await provider.internal(via, {
             value: opts.value,
-            sendMode: SendMode.PAY_GAS_SEPARATELY,
+            // sendMode: SendMode.PAY_GAS_SEPARATELY,
             body: beginCell()
-                .storeUint(1, 32)
-                .storeUint(0, 64)
-                .storeUint(nextItemIndex, 64)
-                .storeCoins(toNano("0.05"))
-                .storeRef(nftItemContent.endCell())
+                .storeUint(0, 32)
+                // .storeUint(0, 64)
+                // .storeUint(nextItemIndex, 64)
+                // .storeCoins(toNano("1"))
+                .storeStringTail("Mint")
+                // .storeRef(nftItemContent.endCell())
                 .endCell(),
         });
     }
