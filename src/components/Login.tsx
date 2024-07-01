@@ -1,6 +1,7 @@
-import {TonConnectButton
+import {
+    TonConnectButton, useTonAddress
 } from '@tonconnect/ui-react';
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import AlertComponent from "./common/AlertComponent";
 // import {useInit} from "./hooks/useInit";
 // import {useTonClient} from "./hooks/useTonClient";
@@ -12,12 +13,18 @@ import {useContractWrapper} from "../hooks/useContractWrapper";
 export const Login = () => {
     // const wallet = useTonWallet();
     // const userFriendlyAddress = useTonAddress();
-    // const rawAddress = useTonAddress(false);
+    const rawAddress = useTonAddress(false);
     const [stakeLoading] = useState(false);
+    const [haveMint, setHaveMint] = useState(false);
     const alertRef = useRef(null);
     // const client = useTonClient();
 
+
     const {connected} = useConnection();
+
+    // todo 合约地址需要修改
+    // todo EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl  正式合约
+    const contractAddress = 'kQCosUQKgQvPvf-WQtvYoL25e-7VY7Wll6zrdC81DT9NZ7S0'
 
     const {
         number,
@@ -27,6 +34,10 @@ export const Login = () => {
 
     function jump() {
         window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
+    }
+
+    function jumpToGame() {
+        window.open('https://gold-minter.vercel.app?userAddress=' + rawAddress, '_self')
     }
 
     // const mainContract = useInit( async () => {
@@ -40,8 +51,9 @@ export const Login = () => {
         // wait until confirmed
         try {
             await mintNFTMessage();
-            window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
-        }catch (e) {
+            await pullCoupon()
+            // window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
+        } catch (e) {
             //Error: Request failed with status code 429
             console.log(e)
         }
@@ -54,6 +66,92 @@ export const Login = () => {
         //     currentSeqno = await walletContract.getSeqno();
         // }
         console.log("transaction confirmed!");
+    }
+
+    // https://testnet.tonapi.io/v2/accounts/UQBqzgPhqVlvk6nsfwi3IHZdDZnJ3Artmv_jm3OW9M5WcpFy/nfts?collection=EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl&limit=1000&offset=0&indirect_ownership=false
+
+    async function queryUserNFTs() {
+        // todo 请求地址要改
+        let url: string = "https://testnet.tonapi.io/v2/accounts/" + rawAddress + "/nfts?collection=" + contractAddress + "&limit=1000&offset=0&indirect_ownership=false"
+        const res = await fetch(url)
+        const data = await res.json()
+        return data.nft_items
+
+        // console.log('response', response)
+    }
+
+    function queryUserHavePullCoupon() {
+        // todo 请求地址要改
+        let url: string = "http://localhost:3000/api/coupon?address=" + rawAddress
+        fetch(url).then(response => response.json())
+            .then((data) => {
+                console.log(data);
+                if (data !== undefined && data.length > 0) {
+                    setHaveMint(true)
+                }
+                // setPosts(data);
+            });
+        // console.log('response', response)
+    }
+
+    function updateUserGetCoupon() {
+        const update = {
+            address: rawAddress
+        };
+        // todo 请求地址要改
+        let url: string = "http://localhost:3000/api/coupon"
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(update)
+        })
+            .then(data => {
+                if (!data.ok) {
+                    console.log('error data', data)
+                }
+                return data.json();
+            }).then(update => {
+            console.log(update);
+        }).catch(e => {
+            console.log(e);
+        });
+    }
+
+
+    useEffect(() => {
+        // queryUserNFTs()
+        if (rawAddress != undefined && rawAddress != '') {
+            queryUserHavePullCoupon()
+        }
+        // updateUserGetCoupon()
+        // queryUserNFTs()
+
+    }, [connected]);
+
+    useEffect(() => {
+        console.log('connected', connected,rawAddress)
+        jumpToGame()
+    }, [connected]);
+
+    async function pullCoupon() {
+        let nftList = null
+        while (nftList === null) {
+            const resultNFTList = await queryUserNFTs()
+            if (resultNFTList.length > 0) {
+                nftList = resultNFTList
+                // console.log(nftList);
+            } else {
+                console.log('dont have nft')
+            }
+        }
+        // 领取优惠券
+        const result = await updateUserGetCoupon()
+        if (result.status === 0) {
+            // 成功
+            setHaveMint(true)
+        }
     }
 
 
@@ -110,18 +208,30 @@ export const Login = () => {
             {/*    {stakeLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint DISHSOON NFT'}*/}
             {/*</button>}*/}
 
-            {connected && (
-                <button className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']"
-                        onClick={() => {mintNFT()}}>
+            {/*{(connected && !haveMint) && (*/}
+            {/*    <button className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']"*/}
+            {/*            onClick={() => {*/}
+            {/*                mintNFT()*/}
+            {/*            }}>*/}
 
-                    {stakeLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint DISHSOON NFT'}
-                </button>
-            )}
+            {/*        {stakeLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint DISHSOON NFT'}*/}
+            {/*    </button>*/}
+            {/*)}*/}
 
-            <div onClick={jump} className="text-[#B5B5B5] mt-[2rem] font-['Roboto-Regular'] flex items-center ">
-                <span className='underline decoration-1 decoration-[#B5B5B5]'>I don’t want free money, just let me order</span>
-                <img src="/right.svg" width="30" height="30" alt="right" className="ml-[0.5rem]"></img>
-            </div>
+            {/*{(connected && haveMint) && (*/}
+            {/*    <button className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']"*/}
+            {/*            onClick={() => {*/}
+            {/*                jump()*/}
+            {/*            }}>*/}
+
+            {/*        Order*/}
+            {/*    </button>*/}
+            {/*)}*/}
+
+            {/*<div onClick={jumpToGame} className="text-[#B5B5B5] mt-[2rem] font-['Roboto-Regular'] flex items-center ">*/}
+            {/*    <span className='underline decoration-1 decoration-[#B5B5B5]'>I don’t want free money, just let me order</span>*/}
+            {/*    <img src="/right.svg" width="30" height="30" alt="right" className="ml-[0.5rem]"></img>*/}
+            {/*</div>*/}
             <AlertComponent ref={alertRef}/>
         </div>
     );

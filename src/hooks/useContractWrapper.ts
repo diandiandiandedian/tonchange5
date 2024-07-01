@@ -22,10 +22,11 @@ export function useContractWrapper() {
     // EQDf6HCOggN_ZGL6YsYleN6mDiclQ_NJOMY-x8G5cTRDOBW4 nft合约
     // 自己创建的nft合约地址: EQAo6NTbA59-iITS8YB0RWjhZoh-vIbuCWZFvU1UCqC1ktaG
     // 自己创建的nftitem合约: EQDylFtFZBeAJXxkE-6Zjs-Li8Lzbh3kqXGhs1lR3B9y52Cd
+    // 正式使用的合约 EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl
     const mainContract = useInit( async () => {
         if (!client) return;
         const contract = new Counter(
-            Address.parse("EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl")
+            Address.parse("kQCosUQKgQvPvf-WQtvYoL25e-7VY7Wll6zrdC81DT9NZ7S0")
         );
         return client.open(contract) as OpenedContract<Counter>;
     },[client]);

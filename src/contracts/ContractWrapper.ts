@@ -48,11 +48,11 @@ export class Counter implements Contract {
     ) {
         const toncenter = new TonClient({
             // todo 线上和测试 testnet.
-            endpoint: 'https://toncenter.com/api/v2/jsonRPC',
+            endpoint: 'https://testnet.toncenter.com/api/v2/jsonRPC',
         })
         // todo nft合约地址
         // 自己创建的nftitem合约: EQDylFtFZBeAJXxkE-6Zjs-Li8Lzbh3kqXGhs1lR3B9y52Cd
-        let {stack}=await toncenter.runMethod(Address.parse('EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl'), 'get_collection_data')
+        let {stack}=await toncenter.runMethod(Address.parse('kQCosUQKgQvPvf-WQtvYoL25e-7VY7Wll6zrdC81DT9NZ7S0'), 'get_collection_data')
 
         let nextItemIndex = stack.readBigNumber();
         console.log('nextItemIndex', nextItemIndex)
