@@ -1,7 +1,7 @@
 import {
     TonConnectButton, useTonAddress
 } from '@tonconnect/ui-react';
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import AlertComponent from "./common/AlertComponent";
 // import {useInit} from "./hooks/useInit";
 // import {useTonClient} from "./hooks/useTonClient";
@@ -14,8 +14,8 @@ export const Login = () => {
     // const wallet = useTonWallet();
     // const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
-    const [stakeLoading] = useState(false);
-    const [haveMint, setHaveMint] = useState(false);
+    // const [stakeLoading] = useState(false);
+    // const [haveMint, setHaveMint] = useState(false);
     const alertRef = useRef(null);
     // const client = useTonClient();
 
@@ -24,17 +24,17 @@ export const Login = () => {
 
     // todo 合约地址需要修改
     // todo EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl  正式合约
-    const contractAddress = 'kQCosUQKgQvPvf-WQtvYoL25e-7VY7Wll6zrdC81DT9NZ7S0'
+    // const contractAddress = 'kQCosUQKgQvPvf-WQtvYoL25e-7VY7Wll6zrdC81DT9NZ7S0'
 
     const {
         number,
-        mintNFTMessage,
+        // mintNFTMessage,
     } = useContractWrapper();
 
 
-    function jump() {
-        window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
-    }
+    // function jump() {
+    //     window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
+    // }
 
     function jumpToGame() {
         window.open('https://gold-minter.vercel.app?userAddress=' + rawAddress, '_self')
@@ -47,38 +47,38 @@ export const Login = () => {
     //     return client.open(contract);
     // },[client]);
 
-    async function mintNFT() {
-        // wait until confirmed
-        try {
-            await mintNFTMessage();
-            await pullCoupon()
-            // window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
-        } catch (e) {
-            //Error: Request failed with status code 429
-            console.log(e)
-        }
-        // const seqno = await connected.connected .getSeqno();
-
-        // let currentSeqno = seqno;
-        // while (currentSeqno == seqno) {
-        //     console.log("waiting for transaction to confirm...");
-        //     await sleep(1500);
-        //     currentSeqno = await walletContract.getSeqno();
-        // }
-        console.log("transaction confirmed!");
-    }
+    // async function mintNFT() {
+    //     // wait until confirmed
+    //     try {
+    //         await mintNFTMessage();
+    //         await pullCoupon()
+    //         // window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
+    //     } catch (e) {
+    //         //Error: Request failed with status code 429
+    //         console.log(e)
+    //     }
+    //     // const seqno = await connected.connected .getSeqno();
+    //
+    //     // let currentSeqno = seqno;
+    //     // while (currentSeqno == seqno) {
+    //     //     console.log("waiting for transaction to confirm...");
+    //     //     await sleep(1500);
+    //     //     currentSeqno = await walletContract.getSeqno();
+    //     // }
+    //     console.log("transaction confirmed!");
+    // }
 
     // https://testnet.tonapi.io/v2/accounts/UQBqzgPhqVlvk6nsfwi3IHZdDZnJ3Artmv_jm3OW9M5WcpFy/nfts?collection=EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl&limit=1000&offset=0&indirect_ownership=false
 
-    async function queryUserNFTs() {
-        // todo 请求地址要改
-        let url: string = "https://testnet.tonapi.io/v2/accounts/" + rawAddress + "/nfts?collection=" + contractAddress + "&limit=1000&offset=0&indirect_ownership=false"
-        const res = await fetch(url)
-        const data = await res.json()
-        return data.nft_items
-
-        // console.log('response', response)
-    }
+    // async function queryUserNFTs() {
+    //     // todo 请求地址要改
+    //     let url: string = "https://testnet.tonapi.io/v2/accounts/" + rawAddress + "/nfts?collection=" + contractAddress + "&limit=1000&offset=0&indirect_ownership=false"
+    //     const res = await fetch(url)
+    //     const data = await res.json()
+    //     return data.nft_items
+    //
+    //     // console.log('response', response)
+    // }
 
     function queryUserHavePullCoupon() {
         // todo 请求地址要改
@@ -87,37 +87,37 @@ export const Login = () => {
             .then((data) => {
                 console.log(data);
                 if (data !== undefined && data.length > 0) {
-                    setHaveMint(true)
+                    // setHaveMint(true)
                 }
                 // setPosts(data);
             });
         // console.log('response', response)
     }
 
-    function updateUserGetCoupon() {
-        const update = {
-            address: rawAddress
-        };
-        // todo 请求地址要改
-        let url: string = "http://localhost:3000/api/coupon"
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(update)
-        })
-            .then(data => {
-                if (!data.ok) {
-                    console.log('error data', data)
-                }
-                return data.json();
-            }).then(update => {
-            console.log(update);
-        }).catch(e => {
-            console.log(e);
-        });
-    }
+    // function updateUserGetCoupon() {
+    //     const update = {
+    //         address: rawAddress
+    //     };
+    //     // todo 请求地址要改
+    //     let url: string = "http://localhost:3000/api/coupon"
+    //     fetch(url, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(update)
+    //     })
+    //         .then(data => {
+    //             if (!data.ok) {
+    //                 console.log('error data', data)
+    //             }
+    //             return data.json();
+    //         }).then(update => {
+    //         console.log(update);
+    //     }).catch(e => {
+    //         console.log(e);
+    //     });
+    // }
 
 
     useEffect(() => {
@@ -135,24 +135,24 @@ export const Login = () => {
         jumpToGame()
     }, [connected]);
 
-    async function pullCoupon() {
-        let nftList = null
-        while (nftList === null) {
-            const resultNFTList = await queryUserNFTs()
-            if (resultNFTList.length > 0) {
-                nftList = resultNFTList
-                // console.log(nftList);
-            } else {
-                console.log('dont have nft')
-            }
-        }
-        // 领取优惠券
-        const result = await updateUserGetCoupon()
-        if (result.status === 0) {
-            // 成功
-            setHaveMint(true)
-        }
-    }
+    // async function pullCoupon() {
+    //     let nftList = null
+    //     while (nftList === null) {
+    //         const resultNFTList = await queryUserNFTs()
+    //         if (resultNFTList.length > 0) {
+    //             nftList = resultNFTList
+    //             // console.log(nftList);
+    //         } else {
+    //             console.log('dont have nft')
+    //         }
+    //     }
+    //     // 领取优惠券
+    //     const result = await updateUserGetCoupon()
+    //     if (result.status === 0) {
+    //         // 成功
+    //         setHaveMint(true)
+    //     }
+    // }
 
 
     return (
