@@ -227,6 +227,12 @@ export const Login = () => {
             {/*        Order*/}
             {/*    </button>*/}
             {/*)}*/}
+                <button className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']"
+                        onClick={() => {
+                            jumpToGame()
+                        }}>
+                    PLAY GAME
+                </button>
 
             {/*<div onClick={jumpToGame} className="text-[#B5B5B5] mt-[2rem] font-['Roboto-Regular'] flex items-center ">*/}
             {/*    <span className='underline decoration-1 decoration-[#B5B5B5]'>I don’t want free money, just let me order</span>*/}
