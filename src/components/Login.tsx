@@ -8,7 +8,7 @@ import AlertComponent from "./common/AlertComponent";
 // import {Counter} from "../contracts/ContractWrapper";
 // import {Address} from "ton-core";
 import {useConnection} from "../hooks/useConnection";
-import {useContractWrapper} from "../hooks/useContractWrapper";
+// import {useContractWrapper} from "../hooks/useContractWrapper";
 
 export const Login = () => {
     // const wallet = useTonWallet();
@@ -26,10 +26,10 @@ export const Login = () => {
     // todo EQBcBMxM4DOJzxgN8KG_Qm8WOgwTbDCxApyTFVduT_8lz1Yl  正式合约
     // const contractAddress = 'kQCosUQKgQvPvf-WQtvYoL25e-7VY7Wll6zrdC81DT9NZ7S0'
 
-    const {
-        number,
-        // mintNFTMessage,
-    } = useContractWrapper();
+    // const {
+    //     number,
+    //     // mintNFTMessage,
+    // } = useContractWrapper();
 
 
     // function jump() {
