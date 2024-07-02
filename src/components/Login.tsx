@@ -160,7 +160,7 @@ export const Login = () => {
 
             <img src="/subtitle.svg" width="300" height="300" alt="sub"></img>
             <img src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></img>
-            <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:{number}</div>
+            <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON</div>
             {/*data-login_uri="https://yugu.vercel.app"*/}
             {/*<TonConnectButton />*/}
             {/*<div>*/}
