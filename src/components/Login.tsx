@@ -160,7 +160,7 @@ export const Login = () => {
 
             <img src="/subtitle.svg" width="300" height="300" alt="sub"></img>
             <img src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></img>
-            <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON</div>
+            <div className="my-[3rem] font-['Roboto-Regular'] text-[#000000]">Start earning for each order with DISHSOON</div>
             {/*data-login_uri="https://yugu.vercel.app"*/}
             {/*<TonConnectButton />*/}
             {/*<div>*/}
@@ -219,7 +219,7 @@ export const Login = () => {
             {/*)}*/}
 
             {connected && (
-                <button className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']"
+                <button className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] bg-white border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']"
                         onClick={() => {
                             jumpToGame()
                         }}>
